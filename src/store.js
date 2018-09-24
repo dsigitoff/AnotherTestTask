@@ -8,6 +8,11 @@ export default new Vuex.Store({
     firstName: "Иван",
     lastName: "Иванов"
   },
-  mutations: {},
+  mutations: {
+    clearInput(state) {
+      state.firstName = null;
+      state.lastName = null;
+    }
+  },
   actions: {}
 });

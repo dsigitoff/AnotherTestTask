@@ -61,7 +61,7 @@
                 <md-progress-bar md-mode="indeterminate" v-if="sending"/>
 
                 <md-card-actions>
-                    <md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button>
+                    <md-button type="submit" class="md-primary" :disabled="sending" @click="clearInput">Create user</md-button>
                 </md-card-actions>
             </md-card>
 
@@ -105,6 +105,10 @@ export default {
     }
   },
   methods: {
+      clearInput() {
+          this.$store.commit('clearInput')
+      },
+
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 
