@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form novalidate class="md-layout" @submit.prevent="validateUser">
+        <form novalidate class="md-layout form_wrap" @submit.prevent="validateUser">
             <md-card class="md-layout-item md-size-50 md-small-size-100">
                 <md-card-header>
                     <div class="md-title">Users</div>
@@ -148,6 +148,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .form_wrap {
+        display: flex;
+        justify-content: center;
+    }
 .md-progress-bar {
   position: absolute;
   top: 0;
