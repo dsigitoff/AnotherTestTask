@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <Main></Main>
+    <Swiper></Swiper>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Main from "@/components/Main.vue";
+import Swiper from "@/components/Swiper.vue";
 
 export default {
   name: "home",
   components: {
-    Main
+    Swiper
   }
 };
 </script>
