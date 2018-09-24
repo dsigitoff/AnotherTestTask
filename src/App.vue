@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <header class="header">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/">About Us</router-link> |
+        <router-link to="/contact">Contact Us</router-link>
+      </header>
     </div>
     <router-view/>
   </div>
@@ -15,6 +18,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 1200px;
 }
 #nav {
   padding: 30px;
@@ -28,4 +32,8 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+  .header {
+    position: fixed;
+    width: 100%;
+  }
 </style>
