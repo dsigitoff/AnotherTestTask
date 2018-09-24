@@ -5,6 +5,7 @@ import store from "./store";
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 
 Vue.use(VueMaterial)
 
