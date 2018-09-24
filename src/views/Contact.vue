@@ -11,43 +11,54 @@
                         <div class="md-layout-item md-small-size-100">
                             <md-field :class="getValidationClass('firstName')">
                                 <label for="first-name">First Name</label>
-                                <md-input class="border-bot" name="first-name" id="first-name" autocomplete="given-name"
-                                          v-model="form.firstName" :disabled="sending"/>
-                                <span class="md-error"
-                                      v-if="!$v.form.firstName.required">The first name is required</span>
-                                <span class="md-error"
-                                      v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
+                                <md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
+                                <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
+                                <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
                             </md-field>
                         </div>
 
                         <div class="md-layout-item md-small-size-100">
                             <md-field :class="getValidationClass('lastName')">
                                 <label for="last-name">Last Name</label>
-                                <md-input class="border-bot" name="last-name" id="last-name" autocomplete="family-name"
-                                          v-model="form.lastName" :disabled="sending"/>
-                                <span class="md-error"
-                                      v-if="!$v.form.lastName.required">The last name is required</span>
+                                <md-input name="last-name" id="last-name" autocomplete="family-name" v-model="form.lastName" :disabled="sending" />
+                                <span class="md-error" v-if="!$v.form.lastName.required">The last name is required</span>
                                 <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid last name</span>
                             </md-field>
                         </div>
                     </div>
-                    <div class="md-layout-item md-small-size-100">
-                        <md-field>
-                            <label>Number</label>
-                            <md-input class="border-bot" v-model="number" type="number"/>
-                        </md-field>
+
+                    <div class="md-layout md-gutter">
+                        <div class="md-layout-item md-small-size-100">
+                            <md-field :class="getValidationClass('gender')">
+                                <label for="gender">Gender</label>
+                                <md-select name="gender" id="gender" v-model="form.gender" md-dense :disabled="sending">
+                                    <md-option></md-option>
+                                    <md-option value="M">M</md-option>
+                                    <md-option value="F">F</md-option>
+                                </md-select>
+                                <span class="md-error">The gender is required</span>
+                            </md-field>
+                        </div>
+
+                        <div class="md-layout-item md-small-size-100">
+                            <md-field :class="getValidationClass('age')">
+                                <label for="age">Age</label>
+                                <md-input type="number" id="age" name="age" autocomplete="age" v-model="form.age" :disabled="sending" />
+                                <span class="md-error" v-if="!$v.form.age.required">The age is required</span>
+                                <span class="md-error" v-else-if="!$v.form.age.maxlength">Invalid age</span>
+                            </md-field>
+                        </div>
                     </div>
 
-                    <div class="md-layout-item md-small-size-100">
-                        <md-field>
-                            <label>Textarea</label>
-                            <md-textarea v-model="textarea" md-counter="250" class="md-textarea"/>
-                        </md-field>
-                    </div>
-
+                    <md-field :class="getValidationClass('email')">
+                        <label for="email">Email</label>
+                        <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email" :disabled="sending" />
+                        <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
+                        <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
+                    </md-field>
                 </md-card-content>
 
-                <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+                <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
                 <md-card-actions>
                     <md-button type="submit" class="md-primary" :disabled="sending">Create user</md-button>
@@ -60,10 +71,12 @@
 </template>
 
 <script>
-    import {validationMixin} from 'vuelidate'
+    import { validationMixin } from 'vuelidate'
     import {
         required,
+        email,
         minLength,
+        maxLength
     } from 'vuelidate/lib/validators'
 
     export default {
@@ -71,10 +84,11 @@
         mixins: [validationMixin],
         data: () => ({
             form: {
-                textarea: null,
                 firstName: null,
                 lastName: null,
-                number: null,
+                gender: null,
+                age: null,
+                email: null,
             },
             userSaved: false,
             sending: false,
@@ -90,14 +104,21 @@
                     required,
                     minLength: minLength(3)
                 },
-                number: {
+                age: {
                     required,
-                    minLength: minLength(11)
+                    maxLength: maxLength(3)
+                },
+                gender: {
+                    required
+                },
+                email: {
+                    required,
+                    email
                 }
             }
         },
         methods: {
-            getValidationClass(fieldName) {
+            getValidationClass (fieldName) {
                 const field = this.$v.form[fieldName]
 
                 if (field) {
@@ -106,7 +127,7 @@
                     }
                 }
             },
-            clearForm() {
+            clearForm () {
                 this.$v.$reset()
                 this.form.firstName = null
                 this.form.lastName = null
@@ -114,7 +135,7 @@
                 this.form.gender = null
                 this.form.email = null
             },
-            saveUser() {
+            saveUser () {
                 this.sending = true
 
                 // Instead of this timeout, here you can call your API
@@ -125,7 +146,7 @@
                     this.clearForm()
                 }, 1500)
             },
-            validateUser() {
+            validateUser () {
                 this.$v.$touch()
 
                 if (!this.$v.$invalid) {
