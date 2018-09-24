@@ -45,7 +45,7 @@
                     <div class="md-layout-item md-small-size-100">
                         <md-field :class="getValidationClass('number')">
                             <label>Number</label>
-                            <md-input v-model="form.number" type="number" name="number" />
+                            <md-input v-model="form.number" type="text" name="number" v-mask="'+7(###)-###-####'"/>
                         </md-field>
                     </div>
 
