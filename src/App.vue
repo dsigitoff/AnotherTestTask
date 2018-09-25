@@ -29,7 +29,7 @@
     }
 
     #nav {
-        padding-bottom: 10%;
+        padding-bottom: 20%;
     }
 
     #nav a {
