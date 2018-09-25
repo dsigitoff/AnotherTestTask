@@ -105,9 +105,12 @@ export default {
     }
   },
   methods: {
-      clearInput() {
-          this.$store.commit('clearInput')
-      },
+    clearInput() {
+      this.$store.commit("clearInput");
+
+        fetch('/forms.json')
+            .then(r => alert(r.status))
+    },
 
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
@@ -148,10 +151,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .form_wrap {
-        display: flex;
-        justify-content: center;
-    }
+.form_wrap {
+  display: flex;
+  justify-content: center;
+}
 .md-progress-bar {
   position: absolute;
   top: 0;
