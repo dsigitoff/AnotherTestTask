@@ -8,7 +8,7 @@
                         :style="slide"
                         class="swip"
                 >
-                    Slide {{index}}
+                    <a href="https://www.factroom.ru/wp-content/uploads/2017/01/4-50-730x592.jpg" class="swip-slide"></a>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
@@ -88,5 +88,10 @@
         background-repeat: no-repeat;
         -webkit-background-size: cover;
         background-size: cover;
+    }
+    .swip-slide {
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 </style>
